@@ -1,0 +1,77 @@
+﻿@model ProjetoVxTel.Models.SimulacaoPlano
+
+<h2> VxTel</h2>
+<div id="main">
+    <div class="row">
+        <article>
+            @using (Html.BeginForm("Index", "SimulacaoPlano", FormMethod.Post, new { enctype = "multipart/form-data", id = "formSimularPlano", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.Hidden("URLSimulacao", Url.Action("ObterSimulacaoPlano", "SimulacaoPlano"))
+
+                @Html.ValidationSummary(true, "", new { @class = "alert-message" })
+
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">FaleMais</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-xs-12 col-md-3">
+                                @Html.Label("DDD de Origem")
+                                @Html.DropDownListFor(model => model.Chamada.DDDOrigem.Codigo, new SelectList(ViewBag.DDsOrigem, "Value", "Text"), new { @class = "form-control", id = "codigo_origem" })
+                                @Html.ValidationMessageFor(model => model.Chamada.DDDOrigem.Codigo, "", new { @class = "alert-message" })
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                @Html.Label("DDD de Destino")
+                                @Html.DropDownListFor(model => model.Chamada.DDDDestino.Codigo, new SelectList(ViewBag.DDsDestino, "Value", "Text"), new { @class = "form-control", id = "codigo_destino" })
+                                @Html.ValidationMessageFor(model => model.Chamada.DDDOrigem.Codigo, "", new { @class = "alert-message" })
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.Label("Plano FaleMais")
+                                    @Html.DropDownListFor(model => model.Plano.QuantidadeMinuto, new SelectList(ViewBag.Planos, "Value", "Text"), new { @class = "form-control", id = "id_plano" })
+                                    @Html.ValidationMessageFor(model => model.Plano.Id, "", new { @class = "alert-message" })
+                                </div>
+                                <div class="col-xs-12 col-md-3">
+                                    @Html.Label("Tempo (Minutos)")
+                                    @Html.TextBoxFor(model => model.Tempo, new { @class = "form-control", id = "tempo" })
+                                    @Html.ValidationMessageFor(model => model.Tempo, "", new { @class = "alert-message" })
+                                </div>
+                            </div>
+                            <br />
+                            <div class="text-right">
+                                <input type="button" value="Simular Plano" id="btnSimularPlano" class="btn btn-primary" title="Simulação de plano" />
+                            </div>
+                            <br />
+                            <table class="table table-bordered table-striped table-responsive table-hover" id="tableSimulacao">
+                                <tr>
+                                    <th id="e1" class="align-center">
+                                        @Html.DisplayName("DDD de Origem")
+                                    </th>
+                                    <th id="e2" class="align-center">
+                                        @Html.Label("DDD de Destino")
+                                    </th>
+                                    <th id="e3" class="align-center">
+                                        @Html.Label("Tempo (Minutos)")
+                                    </th>
+                                    <th id="e4" class="align-center">
+                                        @Html.Label("Plano FaleMais")
+                                    </th>
+                                    <th id="e5" class="align-center">
+                                        @Html.Label("Com FaleMais (R$)")
+                                    </th>
+                                    <th id="e6" class="align-center">
+                                        @Html.Label("Sem FaleMais (R$)")
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </article>
+    </div>
+</div>
+
