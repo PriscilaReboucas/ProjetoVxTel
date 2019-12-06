@@ -21,14 +21,14 @@ namespace ProjetoVxTel.Acesso
             modelBuilder.Properties<string>().Configure(c => c.HasMaxLength(100));
             
             modelBuilder.Entity<Chamada>()
-            .HasOne(x => x.CurrentVersion)
+            .HasOne(x => x.DDDOrigem)
             .WithOne()
-            .HasForeignKey<Chamada>(p => p.DDDCodigoOrigem);
+            .HasForeignKey<Chamada>(p => p.CodigoDDDDestino);
             
             modelBuilder.Entity<Chamada>()
-            .HasOne(x => x.OriginalVersion)
+            .HasOne(x => x.DDDDestino)
             .WithOne()
-            .HasForeignKey<Chamada>(p => p.DDDCodigoDestino);
+            .HasForeignKey<Chamada>(p => p.CodigoDDDDestino);
             
         }
     }
