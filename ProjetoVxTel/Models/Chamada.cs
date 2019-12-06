@@ -10,10 +10,10 @@ namespace ProjetoVxTel.Models
     public class Chamada
     {
         [Key]
-        public int Id { get; set; }
-        [Column("CodigoDDDOrigem")]
-        public DDD DDDOrigem { get; set; }
-        [Column("CodigoDDDDestino")]
+        public int Id { get; set; }       
+        public int CodigoDDDOrigem { get; set; }
+        public DDD DDDOrigem { get; set; }      
+        public int CodigoDDDDestino { get; set; }
         public DDD DDDDestino { get; set; }
         public Decimal ValorMinuto { get; set; }
     }
