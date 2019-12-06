@@ -18,7 +18,18 @@ namespace ProjetoVxTel.Acesso
             // remove as pluralizações defaults que o entity atribui as tabelas.
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //propriedades string terão no máximo 100 caracteres.
-            modelBuilder.Properties<string>().Configure(c => c.HasMaxLength(100));            
+            modelBuilder.Properties<string>().Configure(c => c.HasMaxLength(100));
+            
+            modelBuilder.Entity<Chamada>()
+            .HasOne(x => x.CurrentVersion)
+            .WithOne()
+            .HasForeignKey<Chamada>(p => p.DDDCodigoOrigem);
+            
+            modelBuilder.Entity<Chamada>()
+            .HasOne(x => x.OriginalVersion)
+            .WithOne()
+            .HasForeignKey<Chamada>(p => p.DDDCodigoDestino);
+            
         }
     }
 }
