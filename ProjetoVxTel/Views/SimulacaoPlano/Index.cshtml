@@ -1,8 +1,9 @@
 ﻿@model ProjetoVxTel.Models.SimulacaoPlano
 
 <h2> VxTel</h2>
+
 <div id="main">
-    <div class="container">
+    <div class="container container-fluid">
         <div class="row">
             <article>
                 @using (Html.BeginForm("Index", "SimulacaoPlano", FormMethod.Post, new { enctype = "multipart/form-data", id = "formSimularPlano", @class = "form-horizontal" }))
@@ -14,22 +15,35 @@
                     @Html.ValidationSummary(true, "", new { @class = "alert-message" })
 
                     <div class="row">
-                        <div class="panel panel-primary">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">FaleMais</h3>
+                                <h3 class="panel-title">FaleMais - Informação</h3>
                             </div>
                             <div class="panel-body">
-                                <div class="col-xs-12 col-md-3">
-                                    @Html.Label("DDD de Origem")
-                                    @Html.DropDownListFor(model => model.Chamada.DDDOrigem.Codigo, new SelectList(ViewBag.DDsOrigem, "Value", "Text"), new { @class = "form-control", id = "codigo_origem" })
-                                    @Html.ValidationMessageFor(model => model.Chamada.DDDOrigem.Codigo, "", new { @class = "alert-message" })
-                                </div>
-                                <div class="col-xs-12 col-md-3">
-                                    @Html.Label("DDD de Destino")
-                                    @Html.DropDownListFor(model => model.Chamada.DDDDestino.Codigo, new SelectList(ViewBag.DDsDestino, "Value", "Text"), new { @class = "form-control", id = "codigo_destino" })
-                                    @Html.ValidationMessageFor(model => model.Chamada.DDDOrigem.Codigo, "", new { @class = "alert-message" })
-                                </div>
+                                A empresa de telefonia VxTel, especializada em chamadas de longa distância nacional, lançou um novo produto no mercado chamado FaleMais.
+                                Realize a simulação para escolha do plano mais adequando.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">FaleMais - Simulação do Plano</h3>
+                            </div>
+                            <div class="panel-body">
                                 <div class="row">
+                                    <div class="col-xs-12 col-md-3">
+                                        @Html.Label("DDD de Origem")
+                                        @Html.DropDownListFor(model => model.Chamada.DDDOrigem.Codigo, new SelectList(ViewBag.DDsOrigem, "Value", "Text"), new { @class = "form-control", id = "codigo_origem" })
+                                        @Html.ValidationMessageFor(model => model.Chamada.DDDOrigem.Codigo, "", new { @class = "alert-message" })
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        @Html.Label("DDD de Destino")
+                                        @Html.DropDownListFor(model => model.Chamada.DDDDestino.Codigo, new SelectList(ViewBag.DDsDestino, "Value", "Text"), new { @class = "form-control", id = "codigo_destino" })
+                                        @Html.ValidationMessageFor(model => model.Chamada.DDDOrigem.Codigo, "", new { @class = "alert-message" })
+                                    </div>
+
                                     <div class="col-xs-12 col-md-3">
                                         @Html.Label("Plano FaleMais")
                                         @Html.DropDownListFor(model => model.Plano.QuantidadeMinuto, new SelectList(ViewBag.Planos, "Value", "Text"), new { @class = "form-control", id = "id_plano" })
@@ -37,15 +51,15 @@
                                     </div>
                                     <div class="col-xs-12 col-md-3">
                                         @Html.Label("Tempo (Minutos)")
-                                        @Html.TextBoxFor(model => model.Tempo, new { @class = "form-control", id = "tempo" })
+                                        @Html.TextBoxFor(model => model.Tempo, new { @class = "form-control", id = "tempo", @type = "number" })
                                         @Html.ValidationMessageFor(model => model.Tempo, "", new { @class = "alert-message" })
                                     </div>
                                 </div>
-                                <br />
-                                <div class="text-right">
-                                    <input type="button" value="Simular Plano" id="btnSimularPlano" class="btn btn-primary" title="Simulação de plano" />
+                                <br /> <br />
+                                <div class="text-center">
+                                    <input type="button" value="Simular Plano FaleMais" id="btnSimularPlano" class="btn btn-primary" title="Simulação de plano" />
                                 </div>
-                                <br />
+                                <br /><br />
                                 <table class="table table-bordered table-striped table-responsive table-hover" id="tableSimulacao">
                                     <tr>
                                         <th id="e1" class="align-center">

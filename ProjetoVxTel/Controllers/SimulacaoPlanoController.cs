@@ -20,38 +20,7 @@ namespace ProjetoVxTel.Controllers
 
             return View();
         }
-
-        //[HttpPost]
-        //public ActionResult Index(int? codigoPlano, int? codigoOrigem, int? codigoDestino, int? tempo, SimulacaoPlano simulacaoPlano)
-        //{
-        //    DropDownListPlanos();
-        //    DropDownListDDDs();
-
-        //    if (simulacaoPlano != null)
-        //    {
-        //        var plano = new Plano() { Id = codigoPlano };
-        //        var chamada = new Chamada() { DDDOrigem = new DDD() { Codigo = codigoOrigem }, DDDDestino = new DDD() { Codigo = codigoDestino } };
-        //        plano = new PlanoDados().ConsultarPlano(plano.Id);
-
-        //        chamada = new ChamadaDados().ConsultarChamada(chamada.DDDOrigem.Codigo, chamada.DDDDestino.Codigo);
-
-        //        if (plano != null && chamada != null)
-        //        {
-        //            if (simulacaoPlano.Tempo > plano.QuantidadeMinuto)
-        //            {
-        //                var minutosExcedente = simulacaoPlano.Tempo - plano.QuantidadeMinuto;
-        //                var percentualExcedente = 0.10;
-
-        //                simulacaoPlano.ValorComFaleMais = (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString())) * minutosExcedente;
-        //                simulacaoPlano.ValorSemFaleMais = chamada.ValorMinuto * simulacaoPlano.Tempo;
-        //            }
-        //            else
-        //                simulacaoPlano.ValorComFaleMais = 0;
-        //        }
-        //    }
-
-        //    return View(simulacaoPlano);
-        //}
+       
 
         private void DropDownListPlanos()
 

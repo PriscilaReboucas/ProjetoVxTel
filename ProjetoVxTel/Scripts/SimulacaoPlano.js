@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 
+
     $('#btnSimularPlano').click(function (e) {
         e.preventDefault();
     });
@@ -50,6 +51,8 @@
             }
         }).done(function (data) {
 
+            $("#formSimularPlano")[0].reset();
+
             var index = $('#tableSimulacao').find('tr[id]').length;
 
             data.Chamada.DDDOrigem.Codigo = "0" + data.Chamada.DDDOrigem.Codigo
@@ -59,26 +62,24 @@
             var destino = '<td>' + data.Chamada.DDDDestino.Codigo + '</td>';
 
             var plano = '<td>' + data.Plano.Descricao + '</td>';
-            if (data.ValorComFaleMais != "") {
-                data.ValorComFaleMais = parseFloat(data.ValorComFaleMais).toFixed(2);
-                data.ValorComFaleMais = '<td>' + data.ValorComFaleMais + '</td>';
-            } else {
-                data.ValorComFaleMais = '<td>' + "-" + '</td>';
-            }
 
-            if (data.ValorSemFaleMais != "") {
-                data.ValorSemFaleMais = parseFloat(data.ValorSemFaleMais).toFixed(2);
-                data.ValorSemFaleMais = '<td>' + data.ValorSemFaleMais + '</td>';
-            } else {
-                data.ValorSemFaleMais = '<td>' + "-" + '</td>';
+            var valorComFaleMais = ""
+            if (data.ValorComFaleMais != null) {
+                valorComFaleMais = parseFloat(data.ValorComFaleMais).toFixed(2);
             }
+            valorComFaleMais = '<td>' + valorComFaleMais + '</td>';
+
+            var valorSemFaleMais = ""
+            if (data.ValorSemFaleMais != null) {
+                valorSemFaleMais = parseFloat(data.ValorSemFaleMais).toFixed(2);
+            }
+            valorSemFaleMais = '<td>' + valorSemFaleMais + '</td>';
 
             var tempo = '<td>' + data.Tempo + '</td>';
 
             var countId = $('#tableSimulacao tr').length;
 
-            var simulacao = '<tr id=' + countId + '>' + origem + destino + tempo + plano + data.ValorComFaleMais + data.ValorSemFaleMais + '</tr>';
-
+            var simulacao = '<tr id=' + countId + '>' + origem + destino + tempo + plano + valorComFaleMais + valorSemFaleMais + '</tr>';
 
             $('#tableSimulacao').append(simulacao);
 
