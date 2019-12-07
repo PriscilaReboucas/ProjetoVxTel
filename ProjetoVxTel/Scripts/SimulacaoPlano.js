@@ -59,24 +59,26 @@
             var destino = '<td>' + data.Chamada.DDDDestino.Codigo + '</td>';
 
             var plano = '<td>' + data.Plano.Descricao + '</td>';
-
-            var valorComFaleMais = ""
             if (data.ValorComFaleMais != "") {
-                valorComFaleMais = parseFloat(data.ValorComFaleMais).toFixed(2);
+                data.ValorComFaleMais = parseFloat(data.ValorComFaleMais).toFixed(2);
+                data.ValorComFaleMais = '<td>' + data.ValorComFaleMais + '</td>';
+            } else {
+                data.ValorComFaleMais = '<td>' + "-" + '</td>';
             }
-            valorComFaleMais = '<td>' + valorComFaleMais + '</td>';
 
-            var ValorSemFaleMais = "";
             if (data.ValorSemFaleMais != "") {
-                ValorSemFaleMais = parseFloat(data.ValorSemFaleMais).toFixed(2);
+                data.ValorSemFaleMais = parseFloat(data.ValorSemFaleMais).toFixed(2);
+                data.ValorSemFaleMais = '<td>' + data.ValorSemFaleMais + '</td>';
+            } else {
+                data.ValorSemFaleMais = '<td>' + "-" + '</td>';
             }
-            ValorSemFaleMais = '<td>' + ValorSemFaleMais + '</td>';
 
             var tempo = '<td>' + data.Tempo + '</td>';
 
             var countId = $('#tableSimulacao tr').length;
 
-            var simulacao = '<tr id=' + countId + '>' + origem + destino + tempo + plano + valorComFaleMais + ValorSemFaleMais + '</tr>';
+            var simulacao = '<tr id=' + countId + '>' + origem + destino + tempo + plano + data.ValorComFaleMais + data.ValorSemFaleMais + '</tr>';
+
 
             $('#tableSimulacao').append(simulacao);
 

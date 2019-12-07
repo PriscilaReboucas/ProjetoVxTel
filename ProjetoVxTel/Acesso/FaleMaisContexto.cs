@@ -20,16 +20,9 @@ namespace ProjetoVxTel.Acesso
             //propriedades string terão no máximo 100 caracteres.
             modelBuilder.Properties<string>().Configure(c => c.HasMaxLength(100));
             
-            modelBuilder.Entity<Chamada>()
-            .HasOne(x => x.DDDOrigem)
-            .WithOne()
-            .HasForeignKey<Chamada>(p => p.CodigoDDDDestino);
-            
-            modelBuilder.Entity<Chamada>()
-            .HasOne(x => x.DDDDestino)
-            .WithOne()
-            .HasForeignKey<Chamada>(p => p.CodigoDDDDestino);
-            
+            modelBuilder.Entity<Chamada>().Ignore(x => x.DDDOrigem);
+            modelBuilder.Entity<Chamada>().Ignore(x => x.DDDDestino);
+
         }
     }
 }

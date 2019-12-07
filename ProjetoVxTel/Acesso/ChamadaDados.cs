@@ -16,7 +16,7 @@ namespace ProjetoVxTel.Acesso
 
             if (CodigoDDDOrigem != null && CodigoDDDDestino != null)
             {
-                chamada = db.Chamadas.Where(x => x.DDDOrigem.Codigo == CodigoDDDOrigem && x.DDDDestino.Codigo == CodigoDDDDestino).FirstOrDefault();
+                chamada = db.Chamadas.Where(x => x.CodigoDDDOrigem == CodigoDDDOrigem && x.CodigoDDDDestino == CodigoDDDDestino).FirstOrDefault();
             }
 
             return chamada;
@@ -29,7 +29,5 @@ namespace ProjetoVxTel.Acesso
 
             return listaddds;
         }
-
-
     }
 }

@@ -21,37 +21,37 @@ namespace ProjetoVxTel.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Index(int? codigoPlano, int? codigoOrigem, int? codigoDestino, int? tempo, SimulacaoPlano simulacaoPlano)
-        {
-            DropDownListPlanos();
-            DropDownListDDDs();
+        //[HttpPost]
+        //public ActionResult Index(int? codigoPlano, int? codigoOrigem, int? codigoDestino, int? tempo, SimulacaoPlano simulacaoPlano)
+        //{
+        //    DropDownListPlanos();
+        //    DropDownListDDDs();
 
-            if (simulacaoPlano != null)
-            {
-                var plano = new Plano() { Id = codigoPlano };
-                var chamada = new Chamada() { DDDOrigem = new DDD() { Codigo = codigoOrigem }, DDDDestino = new DDD() { Codigo = codigoDestino } };
-                plano = new PlanoDados().ConsultarPlano(plano.Id);
+        //    if (simulacaoPlano != null)
+        //    {
+        //        var plano = new Plano() { Id = codigoPlano };
+        //        var chamada = new Chamada() { DDDOrigem = new DDD() { Codigo = codigoOrigem }, DDDDestino = new DDD() { Codigo = codigoDestino } };
+        //        plano = new PlanoDados().ConsultarPlano(plano.Id);
 
-                chamada = new ChamadaDados().ConsultarChamada(chamada.DDDOrigem.Codigo, chamada.DDDDestino.Codigo);
+        //        chamada = new ChamadaDados().ConsultarChamada(chamada.DDDOrigem.Codigo, chamada.DDDDestino.Codigo);
 
-                if (plano != null && chamada != null)
-                {
-                    if (simulacaoPlano.Tempo > plano.QuantidadeMinuto)
-                    {
-                        var minutosExcedente = simulacaoPlano.Tempo - plano.QuantidadeMinuto;
-                        var percentualExcedente = 0.10;
+        //        if (plano != null && chamada != null)
+        //        {
+        //            if (simulacaoPlano.Tempo > plano.QuantidadeMinuto)
+        //            {
+        //                var minutosExcedente = simulacaoPlano.Tempo - plano.QuantidadeMinuto;
+        //                var percentualExcedente = 0.10;
 
-                        simulacaoPlano.ValorComFaleMais = (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString())) * minutosExcedente;
-                        simulacaoPlano.ValorSemFaleMais = chamada.ValorMinuto * simulacaoPlano.Tempo;
-                    }
-                    else
-                        simulacaoPlano.ValorComFaleMais = 0;
-                }
-            }
+        //                simulacaoPlano.ValorComFaleMais = (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString())) * minutosExcedente;
+        //                simulacaoPlano.ValorSemFaleMais = chamada.ValorMinuto * simulacaoPlano.Tempo;
+        //            }
+        //            else
+        //                simulacaoPlano.ValorComFaleMais = 0;
+        //        }
+        //    }
 
-            return View(simulacaoPlano);
-        }
+        //    return View(simulacaoPlano);
+        //}
 
         private void DropDownListPlanos()
 
@@ -104,25 +104,27 @@ namespace ProjetoVxTel.Controllers
         public JsonResult ObterSimulacaoPlano(int codigo_origem, int codigo_destino, int id_plano, int tempo)
         {
             var simulacaoPlano = new SimulacaoPlano();
+            simulacaoPlano.Tempo = tempo;
+            simulacaoPlano.Chamada = new Chamada() { DDDOrigem = new DDD() { Codigo = codigo_origem }, DDDDestino = new DDD() { Codigo = codigo_destino } };
 
             try
             {
-                //var chamada = new ChamadaDados().ConsultarChamada(codigo_origem, codigo_destino);
-                var chamada = new Chamada() { ValorMinuto = 1 };
+                var chamada = new ChamadaDados().ConsultarChamada(codigo_origem, codigo_destino);
                 var plano = new PlanoDados().ConsultarPlano(id_plano);
-
-                if (chamada != null && plano != null)
+                if (plano!= null)
                 {
                     simulacaoPlano.Plano = new Plano() { Descricao = plano.Descricao };
-                    simulacaoPlano.Tempo = tempo;
-                    simulacaoPlano.Chamada = new Chamada() { DDDOrigem = new DDD() { Codigo = codigo_origem }, DDDDestino = new DDD() { Codigo = codigo_destino } };
+                }
 
+                if (chamada != null && plano != null)
+                {  
                     if (tempo > plano.QuantidadeMinuto)
                     {
                         var minutosExcedente = tempo - plano.QuantidadeMinuto;
-                        var percentualExcedente = 0.10;
+                        var percentualExcedente = 10.0 / 100.0;
+                        var valorminutototal = chamada.ValorMinuto + (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString()));
 
-                        simulacaoPlano.ValorComFaleMais = (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString())) * minutosExcedente;
+                        simulacaoPlano.ValorComFaleMais = valorminutototal * minutosExcedente;
                         simulacaoPlano.ValorSemFaleMais = chamada.ValorMinuto * simulacaoPlano.Tempo;
                     }
                     else
@@ -132,7 +134,7 @@ namespace ProjetoVxTel.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw (ex);
             }

@@ -11,9 +11,9 @@ namespace ProjetoVxTel.Models
     {
         [Key]
         public int Id { get; set; }       
-        public int CodigoDDDOrigem { get; set; }
+        public int CodigoDDDOrigem { get; set; }       
         public DDD DDDOrigem { get; set; }      
-        public int CodigoDDDDestino { get; set; }
+        public int CodigoDDDDestino { get; set; }       
         public DDD DDDDestino { get; set; }
         public Decimal ValorMinuto { get; set; }
     }

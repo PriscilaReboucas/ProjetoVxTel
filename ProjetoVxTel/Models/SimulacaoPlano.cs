@@ -10,7 +10,7 @@ namespace ProjetoVxTel.Models
         public Plano Plano { get; set; }
         public Chamada Chamada { get; set; }
         public int Tempo { get; set; }
-        public decimal ValorComFaleMais { get; set; }
-        public decimal ValorSemFaleMais { get; set; }
+        public decimal? ValorComFaleMais { get; set; }
+        public decimal? ValorSemFaleMais { get; set; }
     }
 }
