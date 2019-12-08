@@ -14,12 +14,21 @@ namespace ProjetoVxTel.Acesso
         {
             var chamada = new Chamada();
 
-            if (CodigoDDDOrigem != null && CodigoDDDDestino != null)
+            try
             {
-                chamada = db.Chamadas.Where(x => x.CodigoDDDOrigem == CodigoDDDOrigem && x.CodigoDDDDestino == CodigoDDDDestino).FirstOrDefault();
-            }
+                if (CodigoDDDOrigem != null && CodigoDDDDestino != null)
+                {
+                    chamada = db.Chamadas.Where(x => x.CodigoDDDOrigem == CodigoDDDOrigem && x.CodigoDDDDestino == CodigoDDDDestino).FirstOrDefault();
+                }
 
-            return chamada;
+                return chamada;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }           
         }
 
         public List<DDD> ListarDDDs()
@@ -28,6 +37,6 @@ namespace ProjetoVxTel.Acesso
             listaddds = db.DDDs.ToList();
 
             return listaddds;
-        }
+        }        
     }
 }

@@ -10,7 +10,7 @@ namespace ProjetoVxTel.Controllers
 {
     public class SimulacaoPlanoController : Controller
     {
-
+        private FaleMaisContexto db = new FaleMaisContexto();
         // GET: SimulacaoChamada
         [HttpGet]
         public ActionResult Index()
@@ -90,8 +90,7 @@ namespace ProjetoVxTel.Controllers
                     if (tempo > plano.QuantidadeMinuto)
                     {
                         var minutosExcedente = tempo - plano.QuantidadeMinuto;
-                        var percentualExcedente = 10.0 / 100.0;
-                        var valorminutototal = chamada.ValorMinuto + (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString()));
+                        decimal valorminutototal = CalculoValorMinutoTotal(chamada);
 
                         simulacaoPlano.ValorComFaleMais = valorminutototal * minutosExcedente;
                         simulacaoPlano.ValorSemFaleMais = chamada.ValorMinuto * simulacaoPlano.Tempo;
@@ -111,5 +110,20 @@ namespace ProjetoVxTel.Controllers
             return Json(simulacaoPlano, JsonRequestBehavior.AllowGet); ;
         }
 
+        private decimal CalculoValorMinutoTotal(Chamada chamada)
+        {
+            var percentualExcedente = 10.0 / 100.0;
+            var valorminutototal = chamada.ValorMinuto + (chamada.ValorMinuto * decimal.Parse(percentualExcedente.ToString()));
+            return valorminutototal;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
