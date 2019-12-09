@@ -179,6 +179,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Acesso\Scripts\1. Create table DDD.sql" />
+    <Content Include="Acesso\Scripts\2. Create table Plano.sql" />
+    <Content Include="Acesso\Scripts\3. Create table Chamada.sql" />
+    <Content Include="Acesso\Scripts\4. Script carga table DDD.sql" />
+    <Content Include="Acesso\Scripts\5. Script carga table Plano.sql" />
+    <Content Include="Acesso\Scripts\6. Script carga table Chamada.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
